@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Details - Budget Travel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .content {
+            padding: 2rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+        
+        .destination-header {
+            margin-bottom: 2rem;
+        }
+        
+        .destination-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .destination-location {
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+        
+        .cost-badge {
+            background: linear-gradient(135deg, #f72585, #ff6b9d);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .detail-item {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .detail-value {
+            color: #64748b;
+        }
+        
+        .must-see-spots {
+            margin-top: 2rem;
+        }
+        
+        .spots-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .spot-tag {
+            background: #6366f1;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #374151;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="destination-detail">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        async function loadDestination() {
+            const pathParts = window.location.pathname.split('/');
+            const destinationId = pathParts[pathParts.length - 1];
+            
+            try {
+                const response = await fetch(`/api/destinations/${destinationId}`);
+                if (!response.ok) {
+                    window.location.href = '/404';
+                    return;
+                }
+                
+                const destination = await response.json();
+                displayDestination(destination);
+            } catch (error) {
+                console.error('Error loading destination:', error);
+                window.location.href = '/404';
+            }
+        }
+
+        function displayDestination(destination) {
+            const container = document.getElementById('destination-detail');
+            
+            container.innerHTML = `
+                <img src="${destination.image}" alt="${destination.name}" class="hero-image">
+                <div class="content">
+                    <a href="/" class="back-btn">← Back to all destinations</a>
+                    
+                    <div class="destination-header">
+                        <h1 class="destination-title">${destination.name}</h1>
+                        <p class="destination-location">📍 ${destination.location}</p>
+                        <span class="cost-badge">💰 ${destination.estimatedCost}</span>
+                    </div>
+
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <div class="detail-label">🌤️ Best Season</div>
+                            <div class="detail-value">${destination.bestSeason}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">🎯 Difficulty Level</div>
+                            <div class="detail-value">${destination.difficultyLevel}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">🆔 Destination ID</div>
+                            <div class="detail-value">${destination.id}</div>
+                        </div>
+                    </div>
+
+                    <div class="must-see-spots">
+                        <h3>🏛️ Must-See Spots</h3>
+                        <div class="spots-list">
+                            ${destination.mustSeeSpots.map(spot => `<span class="spot-tag">${spot}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="description">
+                        <strong>About ${destination.name}:</strong><br>
+                        ${destination.description}
+                    </div>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadDestination);
+    </script>
+</body>
+</html>
