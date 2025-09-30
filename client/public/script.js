@@ -14,7 +14,7 @@ function displayDestinations(destinations) {
     grid.className = 'destinations-grid';
     
     grid.innerHTML = destinations.map(destination => `
-        <article class="destination-card" onclick="goToDestination('${destination.id}')">
+        <article class="destination-card" onclick="goToDestination('${destination.destination_id}')">
             <img src="${destination.image}" alt="${destination.name}" class="destination-image">
             <div class="destination-content">
                 <div class="destination-header">
@@ -22,12 +22,12 @@ function displayDestinations(destinations) {
                         <h3 class="destination-title">${destination.name}</h3>
                         <p class="destination-location">${destination.location}</p>
                     </div>
-                    <span class="destination-cost">${destination.estimatedCost}</span>
+                    <span class="destination-cost">${destination.estimated_cost}</span>
                 </div>
                 <p class="destination-description">${destination.description}</p>
                 <div class="destination-details">
-                    <span class="detail-badge">📅 ${destination.bestSeason}</span>
-                    <span class="detail-badge difficulty-${destination.difficultyLevel.toLowerCase()}">${destination.difficultyLevel}</span>
+                    <span class="detail-badge">📅 ${destination.best_season}</span>
+                    <span class="detail-badge difficulty-${destination.difficulty_level.toLowerCase()}">${destination.difficulty_level}</span>
                 </div>
             </div>
         </article>
@@ -39,4 +39,4 @@ function goToDestination(id) {
 }
 
 // Load destinations when page loads
-document.addEventListener('DOMContentLoaded', loadDestinations); 
+document.addEventListener('DOMContentLoaded', loadDestinations);
