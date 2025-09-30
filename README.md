@@ -13,6 +13,15 @@ The following **required** functionality is completed:
 - [x] **The web app uses only HTML, CSS, and JavaScript without a frontend framework**
 - [x] **The web app is connected to a PostgreSQL database, with an appropriately structured database table for the list items**
 
+## Video Walkthrough
+
+Here's a walkthrough of implemented required features:
+
+<img src='budget-travel-walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+<!-- Replace this with whatever GIF tool you used! -->
+GIF created with **[ScreenToGif](https://www.screentogif.com/)**
+
 ## Database Schema
 
 The destinations table includes:
