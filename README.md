@@ -46,6 +46,11 @@ Successfully migrated from static JSON data to PostgreSQL database. Main challen
 
 The app maintains all original functionality while now pulling data dynamically from the database.
 
+## Screenshots
+<img width="2796" height="1666" alt="image" src="https://github.com/user-attachments/assets/0a79e10f-164c-4dc8-a145-03582c4ac21c" />
+<img width="2808" height="1722" alt="image" src="https://github.com/user-attachments/assets/65b40225-bf72-4b37-8fa9-5612dfec7e82" />
+<img width="2792" height="1752" alt="image" src="https://github.com/user-attachments/assets/02b369c3-ccd2-4800-82af-b97302c1e210" />
+
 ## License
 
 Copyright 2025 Joey Katach
